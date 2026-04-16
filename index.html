@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Powered Shopping Recommendation System - Discover products tailored to your preferences using advanced machine learning algorithms.">
+    <title>ShopSense AI — Smart Shopping Recommendations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- ─── Animated Background ─────────────────────────────────────── -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles" id="particles"></div>
+
+    <!-- ─── Navigation ──────────────────────────────────────────────── -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <div class="nav-logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-grad)"/>
+                    <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" stroke-width="1.5" fill="none"/>
+                    <circle cx="16" cy="16" r="3" fill="white"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#6366f1"/>
+                            <stop offset="1" stop-color="#a855f7"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <span class="nav-title">ShopSense <span class="nav-ai-badge">AI</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a>
+            <a href="#explore" class="nav-link" data-section="explore">Explore</a>
+            <a href="#recommend" class="nav-link" data-section="recommend">Recommend</a>
+            <a href="#theory" class="nav-link" data-section="theory">How It Works</a>
+        </div>
+    </nav>
+
+    <!-- ─── Main Content ────────────────────────────────────────────── -->
+    <main class="main-content">
+
+        <!-- ── HERO SECTION ──────────────────────────────────────── -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <div class="hero-badge">🤖 AI-Powered Recommendations</div>
+                <h1 class="hero-title">
+                    Smart Shopping<br>
+                    <span class="gradient-text">Recommendations</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Discover the perfect products using advanced machine learning algorithms —
+                    Content-Based Filtering, Popularity Scoring, and Hybrid Intelligence.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('recommend')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        Get Recommendations
+                    </button>
+                    <button class="btn btn-ghost" onclick="scrollToSection('theory')">
+                        Learn How It Works →
+                    </button>
+                </div>
+                <div class="hero-stats" id="heroStats">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DASHBOARD SECTION ─────────────────────────────────── -->
+        <section class="section" id="dashboard">
+            <div class="section-header">
+                <h2 class="section-title">📊 Analytics Dashboard</h2>
+                <p class="section-desc">Real-time insights from our product catalog</p>
+            </div>
+            <div class="dashboard-grid" id="dashboardGrid">
+                <!-- Filled by JS -->
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">Product Type Distribution</h3>
+                    <div class="chart-container" id="typeChart"></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Top Brands</h3>
+                    <div class="chart-container" id="brandChart"></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Price Range Distribution</h3>
+                    <div class="chart-container" id="priceChart"></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Average Rating by Category</h3>
+                    <div class="chart-container" id="ratingChart"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── EXPLORE SECTION ───────────────────────────────────── -->
+        <section class="section" id="explore">
+            <div class="section-header">
+                <h2 class="section-title">🔍 Explore Products</h2>
+                <p class="section-desc">Browse and search through our catalog</p>
+            </div>
+            <div class="explore-controls">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                </div>
+                <select id="typeFilter" class="filter-select">
+                    <option value="All">All Categories</option>
+                </select>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Filled by JS -->
+            </div>
+            <div class="pagination" id="pagination"></div>
+        </section>
+
+        <!-- ── RECOMMENDATION SECTION ────────────────────────────── -->
+        <section class="section" id="recommend">
+            <div class="section-header">
+                <h2 class="section-title">🧠 Recommendation Engine</h2>
+                <p class="section-desc">Choose an algorithm and discover personalized product suggestions</p>
+            </div>
+
+            <!-- Algorithm Tabs -->
+            <div class="algo-tabs">
+                <button class="algo-tab active" data-algo="popular" id="tab-popular">
+                    <span class="algo-icon">🔥</span>
+                    <span class="algo-name">Trending</span>
+                    <span class="algo-desc">Popularity-Based</span>
+                </button>
+                <button class="algo-tab" data-algo="content" id="tab-content">
+                    <span class="algo-icon">🔗</span>
+                    <span class="algo-name">Similar</span>
+                    <span class="algo-desc">Content-Based (TF-IDF)</span>
+                </button>
+                <button class="algo-tab" data-algo="deals" id="tab-deals">
+                    <span class="algo-icon">💰</span>
+                    <span class="algo-name">Best Deals</span>
+                    <span class="algo-desc">Value Score</span>
+                </button>
+                <button class="algo-tab" data-algo="price" id="tab-price">
+                    <span class="algo-icon">💲</span>
+                    <span class="algo-name">Budget</span>
+                    <span class="algo-desc">Price-Range Filter</span>
+                </button>
+                <button class="algo-tab" data-algo="hybrid" id="tab-hybrid">
+                    <span class="algo-icon">⚡</span>
+                    <span class="algo-name">Smart Pick</span>
+                    <span class="algo-desc">Hybrid Algorithm</span>
+                </button>
+            </div>
+
+            <!-- Algorithm Controls -->
+            <div class="algo-controls" id="algoControls">
+                <!-- Content-based: product selector -->
+                <div class="control-group hidden" id="contentControls">
+                    <label class="control-label">Select a product to find similar items:</label>
+                    <select id="productSelector" class="filter-select wide">
+                        <!-- Filled by JS -->
+                    </select>
+                </div>
+                <!-- Price range controls -->
+                <div class="control-group hidden" id="priceControls">
+                    <label class="control-label">Set your budget range:</label>
+                    <div class="range-inputs">
+                        <div class="range-field">
+                            <span class="range-label">Min ₹</span>
+                            <input type="number" id="minPrice" value="0" min="0" class="range-input">
+                        </div>
+                        <span class="range-separator">—</span>
+                        <div class="range-field">
+                            <span class="range-label">Max ₹</span>
+                            <input type="number" id="maxPrice" value="50000" min="0" class="range-input">
+                        </div>
+                    </div>
+                </div>
+                <!-- Category filter for all -->
+                <div class="control-group" id="categoryControl">
+                    <label class="control-label">Filter by category:</label>
+                    <select id="recTypeFilter" class="filter-select">
+                        <option value="All">All Categories</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="getRecommendations" onclick="fetchRecommendations()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    Get Recommendations
+                </button>
+            </div>
+
+            <!-- Algorithm Explanation -->
+            <div class="algo-explanation" id="algoExplanation">
+                <!-- Filled by JS -->
+            </div>
+
+            <!-- Results -->
+            <div class="rec-results" id="recResults">
+                <!-- Filled by JS -->
+            </div>
+        </section>
+
+        <!-- ── THEORY SECTION ────────────────────────────────────── -->
+        <section class="section" id="theory">
+            <div class="section-header">
+                <h2 class="section-title">📚 How It Works</h2>
+                <p class="section-desc">Understanding Recommendation Systems in E-Commerce</p>
+            </div>
+
+            <div class="theory-grid">
+                <!-- Q1 -->
+                <div class="theory-card">
+                    <div class="theory-number">01</div>
+                    <h3 class="theory-title">Why does this platform use recommendation systems?</h3>
+                    <div class="theory-content">
+                        <p>E-commerce platforms like Amazon use recommendation systems to:</p>
+                        <ul>
+                            <li><strong>Enhance User Experience</strong> — Help users discover relevant products from millions of listings without manual searching</li>
+                            <li><strong>Increase Revenue</strong> — Personalized recommendations drive 35% of Amazon's total sales revenue</li>
+                            <li><strong>Improve Engagement</strong> — Users spend more time on platforms that understand their preferences</li>
+                            <li><strong>Reduce Choice Overload</strong> — With 350M+ products, filtering is essential to prevent decision paralysis</li>
+                            <li><strong>Customer Retention</strong> — Satisfying recommendation experiences build brand loyalty</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="theory-card">
+                    <div class="theory-number">02</div>
+                    <h3 class="theory-title">What type of data does it collect?</h3>
+                    <div class="theory-content">
+                        <p>Shopping platforms collect multiple data types:</p>
+                        <ul>
+                            <li><strong>Explicit Data</strong> — Ratings, reviews, wishlists, purchase history</li>
+                            <li><strong>Implicit Data</strong> — Browsing history, click patterns, time spent on pages, search queries</li>
+                            <li><strong>Product Metadata</strong> — Name, category, brand, price, specifications, images</li>
+                            <li><strong>User Demographics</strong> — Age, location, device type, language preferences</li>
+                            <li><strong>Contextual Data</strong> — Time of day, season, trending events, inventory levels</li>
+                        </ul>
+                        <p class="theory-note">Our system uses: <strong>Product names, categories, ratings, number of ratings, and pricing data</strong></p>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="theory-card">
+                    <div class="theory-number">03</div>
+                    <h3 class="theory-title">How does the recommendation system work?</h3>
+                    <div class="theory-content">
+                        <p>Our system implements a <strong>multi-layered recommendation pipeline</strong>:</p>
+                        <div class="theory-flow">
+                            <div class="flow-step">
+                                <span class="flow-num">1</span>
+                                <span>Data Ingestion & Cleaning</span>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <span class="flow-num">2</span>
+                                <span>Feature Extraction (TF-IDF)</span>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <span class="flow-num">3</span>
+                                <span>Similarity Computation</span>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <span class="flow-num">4</span>
+                                <span>Score Aggregation</span>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <span class="flow-num">5</span>
+                                <span>Ranked Results</span>
+                            </div>
+                        </div>
+                        <p>The pipeline processes product metadata, builds feature vectors, computes similarity matrices, and combines multiple scoring signals for final ranking.</p>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="theory-card wide">
+                    <div class="theory-number">04</div>
+                    <h3 class="theory-title">What techniques/algorithms are used?</h3>
+                    <div class="theory-content">
+                        <div class="algo-cards">
+                            <div class="mini-card">
+                                <h4>🔗 Content-Based Filtering</h4>
+                                <p>Uses <strong>TF-IDF (Term Frequency-Inverse Document Frequency)</strong> to convert product text into numerical vectors, then computes <strong>Cosine Similarity</strong> to find products with similar descriptions.</p>
+                                <code>similarity = cos(θ) = (A·B) / (||A|| × ||B||)</code>
+                            </div>
+                            <div class="mini-card">
+                                <h4>🔥 Popularity-Based</h4>
+                                <p>Uses <strong>Bayesian Weighted Rating</strong> (IMDB formula) to rank products. Accounts for both rating value and volume, preventing products with few but perfect ratings from dominating.</p>
+                                <code>WR = (v/(v+m))×R + (m/(v+m))×C</code>
+                            </div>
+                            <div class="mini-card">
+                                <h4>💰 Value Scoring</h4>
+                                <p>Combines <strong>normalized discount percentage</strong> with <strong>normalized rating</strong> to find products offering the best value-for-money. Weights: 40% discount, 60% rating.</p>
+                                <code>value = 0.4×norm_discount + 0.6×norm_rating</code>
+                            </div>
+                            <div class="mini-card">
+                                <h4>⚡ Hybrid Algorithm</h4>
+                                <p>Combines all three signals with configurable weights — <strong>40% content similarity, 35% popularity, 25% value score</strong> — to produce the most balanced recommendations.</p>
+                                <code>hybrid = 0.4×content + 0.35×pop + 0.25×value</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="theory-card">
+                    <div class="theory-number">05</div>
+                    <h3 class="theory-title">How does it personalize content?</h3>
+                    <div class="theory-content">
+                        <ul>
+                            <li><strong>Product Similarity</strong> — When a user views/selects a product, similar items are surfaced using cosine similarity on TF-IDF vectors</li>
+                            <li><strong>Category Affinity</strong> — Filtering recommendations by the user's preferred product category</li>
+                            <li><strong>Budget Matching</strong> — Price-range filtering ensures recommendations fit the user's spending capacity</li>
+                            <li><strong>Brand Clustering</strong> — Products from similar brands are weighted higher in content-based results</li>
+                            <li><strong>Social Proof</strong> — Popularity scores leverage crowd wisdom (high ratings + high volume)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="theory-card">
+                    <div class="theory-number">06</div>
+                    <h3 class="theory-title">What challenges does it face?</h3>
+                    <div class="theory-content">
+                        <ul>
+                            <li><strong>Cold Start Problem</strong> — New products/users with no interaction history cannot be effectively recommended</li>
+                            <li><strong>Data Sparsity</strong> — Most users interact with a tiny fraction of available products</li>
+                            <li><strong>Scalability</strong> — Computing similarity matrices grows quadratically with catalog size</li>
+                            <li><strong>Filter Bubble</strong> — Over-personalization may trap users in echo chambers of similar products</li>
+                            <li><strong>Dynamic Inventory</strong> — Products go in/out of stock, prices change, new products arrive constantly</li>
+                            <li><strong>Bias & Fairness</strong> — Popular brands may receive disproportionate visibility</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── FOOTER ────────────────────────────────────────────── -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>ShopSense AI — Shopping Recommendation System</p>
+                <p class="footer-tech">Built with Python • Flask • scikit-learn • TF-IDF • Cosine Similarity</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
